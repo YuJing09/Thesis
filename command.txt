@@ -1,0 +1,146 @@
+loss figure:
+commands:
+jinnliu@jinnliu-WS660T:/media/jinnliu/My Passport/yp-Efficient-0221/loss_history$ python train_and_val_g.py
+jinnliu@jinnliu-WS660T:/media/jinnliu/My Passport/yp-Efficient-0221/loss_history$ python train_and_val_steer_loss.py 
+jinnliu@jinnliu-WS660T:/media/jinnliu/My Passport/yp-Efficient-0221/loss_history$ python train_and_val_loss.py 
+
+inputs:
+/media/jinnliu/My Passport/yp-Efficient-0221/loss_history/loss_reg.npy
+
+/media/jinnliu/My Passport/yp-Efficient-0221/loss_history/val_loss_reg.npy
+
+/media/jinnliu/My Passport/yp-Efficient-0221/loss_history/loss_danet.npy
+
+/media/jinnliu/My Passport/yp-Efficient-0221/loss_history/val_loss_danet.npy
+
+/media/jinnliu/My Passport/yp-Efficient-0221/loss_history/loss_gru.npy
+
+/media/jinnliu/My Passport/yp-Efficient-0221/loss_history/val_loss_gru.npy
+
+/media/jinnliu/My Passport/yp-Efficient-0221/loss_history/loss_steer.npy
+
+/media/jinnliu/My Passport/yp-Efficient-0221/loss_history/val_loss_steer.npy
+
+outputs:
+/media/jinnliu/My Passport/yp-Efficient-0221/loss_history/atten.png
+/media/jinnliu/My Passport/yp-Efficient-0221/loss_history/gru.png
+/media/jinnliu/My Passport/yp-Efficient-0221/loss_history/reg.png
+/media/jinnliu/My Passport/yp-Efficient-0221/loss_history/allloss.png
+
+loss bar:
+commands:
+jinnliu@jinnliu-WS660T:/media/jinnliu/My Passport/yp-Efficient-0221/loss_history$ python hist.py
+
+outputs:
+jinnliu@jinnliu-WS660T:/media/jinnliu/My Passport/yp-Efficient-0221/bar.png
+
+
+ade fde radar simulation results:
+commands:
+
+jinnliu@jinnliu-WS660T:/media/jinnliu/My Passport/yp-Efficient-0221$ python modelcompare.py 
+
+code:
+media/jinnliu/My Passport/yp-Efficient-0221/utils.py
+media/jinnliu/My Passport/yp-Efficient-0221/modell_transform.py
+media/jinnliu/My Passport/yp-Efficient-0221/modell2.py
+media/jinnliu/My Passport/yp-Efficient-0221/server.py
+media/jinnliu/My Passport/yp-Efficient-0221/server_path.py
+media/jinnliu/My Passport/yp-Efficient-0221/modell_steer.py
+media/jinnliu/My Passport/yp-Efficient-0221/car_calc_curvature.py
+
+
+inputs:
+/media/jinnliu/My Passport/yp-Efficient-0221/saved_model/weights3-improvement-02-2.01.hdf5
+
+/media/jinnliu/My Passport/yp-Efficient-0221/saved_model/saved_model/weights-gru-improvement-85-2.08.hdf5
+
+/media/jinnliu/My Passport/yp-Efficient-0221/saved_model/weights-reg-improvement-30-2.02.hdf5
+
+/media/jinnliu/My Passport/yp-Efficient-0221/saved_model/steer-weights-improvement-159-0.59.hdf5
+
+/media/jinnliu/My Passport/Chunk1/../camera320.h5 ... /media/jinnliu/My Passport/Chunk10/camera320.h5
+/media/jinnliu/My Passport/Chunk1/../global_pose/frame_velocities ... /media/jinnliu/My Passport/Chunk10/global_pose/frame_velocities
+/media/jinnliu/My Passport/Chunk1/../global_pose/frame_steers.npy ... /media/jinnliu/My Passport/Chunk10/global_pose/frame_steers.npy
+/media/jinnliu/My Passport/Chunk1/../pathdata.h5 ... /media/jinnliu/My Passport/Chunk10/pathdata.h5
+/media/jinnliu/My Passport/Chunk1/../radardata.h5 ... /media/jinnliu/My Passport/Chunk10/radardata.h5
+
+outputs:
+OPPN ADE and FDE 
+OPGRU ADE and FDE
+OPAN ADE and FDE
+OPAN在測試集上的有效距離以及雷達模擬結果
+
+OPPN,OPGRU,OPAN 測試集GPS軌跡,輸入圖像,原圖
+commands:
+
+jinnliu@jinnliu-WS660T:/media/jinnliu/My Passport/yp-Efficient-0221$ python modelplot.py 
+
+code:
+media/jinnliu/My Passport/yp-Efficient-0221/utils.py
+media/jinnliu/My Passport/yp-Efficient-0221/modell_transform.py
+media/jinnliu/My Passport/yp-Efficient-0221/modell2.py
+media/jinnliu/My Passport/yp-Efficient-0221/server.py
+media/jinnliu/My Passport/yp-Efficient-0221/server_path.py
+media/jinnliu/My Passport/yp-Efficient-0221/modell_steer.py
+media/jinnliu/My Passport/yp-Efficient-0221/car_calc_curvature.py
+media/jinnliu/My Passport/yp-Efficient-0221/lib/camera.py
+media/jinnliu/My Passport/yp-Efficient-0221/tools/lib/framereader.py
+media/jinnliu/My Passport/yp-Efficient-0221/common/transformations/camera.py
+media/jinnliu/My Passport/yp-Efficient-0221/common/transformations/model.py
+
+inputs:
+/media/jinnliu/My Passport/yp-Efficient-0221/saved_model/weights3-improvement-02-2.01.hdf5
+
+/media/jinnliu/My Passport/yp-Efficient-0221/saved_model/saved_model/weights-gru-improvement-85-2.08.hdf5
+
+/media/jinnliu/My Passport/yp-Efficient-0221/saved_model/weights-reg-improvement-30-2.02.hdf5
+
+/media/jinnliu/My Passport/yp-Efficient-0221/saved_model/steer-weights-improvement-159-0.59.hdf5
+
+/media/jinnliu/My Passport/Chunk1/../camera320.h5 ... /media/jinnliu/My Passport/Chunk10/camera320.h5
+/media/jinnliu/My Passport/Chunk1/../global_pose/frame_velocities ... /media/jinnliu/My Passport/Chunk10/global_pose/frame_velocities
+/media/jinnliu/My Passport/Chunk1/../global_pose/frame_steers.npy ... /media/jinnliu/My Passport/Chunk10/global_pose/frame_steers.npy
+/media/jinnliu/My Passport/Chunk1/../pathdata.h5 ... /media/jinnliu/My Passport/Chunk10/pathdata.h5
+/media/jinnliu/My Passport/Chunk1/../radardata.h5 ... /media/jinnliu/My Passport/Chunk10/radardata.h5
+/media/jinnliu/My Passport/Chunk1/../video.hevc ... /media/jinnliu/My Passport/Chunk10/video.hevc
+/media/jinnliu/My Passport/Chunk1/../log.h5 ... /media/jinnliu/My Passport/Chunk10/log.h5
+
+outputs
+OPPN,OPGRU,OPAN 測試集GPS軌跡,輸入圖像,原圖
+
+OPAN在測試集的GPS軌跡,軌跡偏差線,雷達位置可視化
+commands:
+jinnliu@jinnliu-WS660T:/media/jinnliu/My Passport/yp-Efficient-0221$ python modelplotall.py 
+code:
+media/jinnliu/My Passport/yp-Efficient-0221/utils.py
+media/jinnliu/My Passport/yp-Efficient-0221/modell_transform.py
+media/jinnliu/My Passport/yp-Efficient-0221/modell2.py
+media/jinnliu/My Passport/yp-Efficient-0221/server.py
+media/jinnliu/My Passport/yp-Efficient-0221/server_path.py
+media/jinnliu/My Passport/yp-Efficient-0221/modell_steer.py
+media/jinnliu/My Passport/yp-Efficient-0221/car_calc_curvature.py
+media/jinnliu/My Passport/yp-Efficient-0221/lib/camera.py
+media/jinnliu/My Passport/yp-Efficient-0221/tools/lib/framereader.py
+media/jinnliu/My Passport/yp-Efficient-0221/common/transformations/camera.py
+media/jinnliu/My Passport/yp-Efficient-0221/common/transformations/model.py
+inputs:
+/media/jinnliu/My Passport/yp-Efficient-0221/saved_model/weights3-improvement-02-2.01.hdf5
+/media/jinnliu/My Passport/Chunk1/../camera320.h5 ... /media/jinnliu/My Passport/Chunk10/camera320.h5
+/media/jinnliu/My Passport/Chunk1/../global_pose/frame_velocities ... /media/jinnliu/My Passport/Chunk10/global_pose/frame_velocities
+/media/jinnliu/My Passport/Chunk1/../global_pose/frame_steers.npy ... /media/jinnliu/My Passport/Chunk10/global_pose/frame_steers.npy
+/media/jinnliu/My Passport/Chunk1/../pathdata.h5 ... /media/jinnliu/My Passport/Chunk10/pathdata.h5
+/media/jinnliu/My Passport/Chunk1/../radardata.h5 ... /media/jinnliu/My Passport/Chunk10/radardata.h5
+/media/jinnliu/My Passport/Chunk1/../video.hevc ... /media/jinnliu/My Passport/Chunk10/video.hevc
+/media/jinnliu/My Passport/Chunk1/../log.h5 ... /media/jinnliu/My Passport/Chunk10/log.h5
+/media/jinnliu/My Passport/Chunk1/../raw_log.bz2 ... /media/jinnliu/My Passport/Chunk10/raw_log.bz2
+outputs:
+OPAN在測試集的GPS軌跡,軌跡偏差線,雷達位置可視化
+
+
+Run the deploy model:
+
+
+
+
+

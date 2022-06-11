@@ -1,0 +1,20 @@
+python server_path.py --port 5557 --time 1
+python server_path.py --port 5558 --validation --time 1
+python train_path_new4.py --port 5557 --val_port 5558   
+python ktot.py EfficientNet-d0.h5 reg.pb
+
+
+(snpe) jinnliu@jinnliu-WS660T:~/snpe-1.48.0.2554$ source bin/envsetup.sh -t ./
+(snpe) jinnliu@jinnliu-WS660T:~/snpe-1.48.0.2554$ snpe-tensorflow-to-dlc --input_network ./pb/reg.pb --input_dim Input "1,160,320,3"  --out_node "Identity" --output_path ypreg.dlc
+(snpe) jinnliu@jinnliu-WS660T:~/snpe-1.48.0.2554$ snpe-dlc-viewer -i ypreg.dlc
+
+---Thesis fig3.13,3.14
+/media/jinnliu/My Passport/yp-Efficient-0221/modelplot.py
+---Thesis table4.1
+/media/jinnliu/My Passport/yp-Efficient-0221/datagen_path.py
+--- Thesis eqn4.1 4.2 fig4.1
+/media/jinnliu/My Passport/yp-Efficient-0221/car_calc_curvature.py
+---Thesis eqn4.3 4.4
+/media/jinnliu/My Passport/yp-Efficient-0221/modelcompare.py
+
+/media/jinnliu/My Passport/yp-Efficient-0221/

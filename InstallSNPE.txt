@@ -1,0 +1,160 @@
+---------- Run SNPE on Ubuntu 20.04 in VMware ---------- YPL & JLL 2020.7.19 - 2021.2.1
+
+(A) Download and Install SNPE, Install python and tensorflow
+(B) Test 1: View inception_v3.dlc (deep learning container) to get an html file on your browser
+(C) Test 2: View supercombo.dlc
+(D) Test 3: Run inception_v3.dlc to predict
+(E) Test 4: Convert inception_frozen.pb to inception_v3.dlc
+(F) Test 5: Convert ypnet1.pb to ypnet1.dlc
+
+Snapdragon Neural Processing Engine SDK Gudie, Qualcomm
+https://developer.qualcomm.com/docs/snpe/index.html
+
+(A) ----- Download SNPE
+
+--- go to browser
+https://developer.android.com/ndk/downloads
+--- download 
+android-ndk-r21d-linux-x86_64.zip
+--- go to browser
+https://developer.qualcomm.com/downloads/qualcomm-neural-processing-sdk-ai-v1380
+--- sign up and download 
+snpe-1.38.0.zip
+
+----- Install SNPE
+jinn@Liu:~$ cd Downloads
+jinn@Liu:~/Downloads$ unzip -X snpe-1.38.0.zip
+#jinn@Liu:~/Downloads$ unzip -X android-ndk-r21d-linux-x86_64.zip#
+jinn@Liu:~/Downloads$ unzip -X android-ndk-r21e-linux-x86_64.zip
+#jinn@Liu:~/Downloads$ mv android-ndk-r21d ~/android-ndk-r21d#
+jinn@Liu:~/Downloads$ mv android-ndk-r21e ~/android-ndk-r21e
+jinn@Liu:~/Downloads$ mv snpe-1.38.0.2034 ~/snpe-1.38.0.2034
+jinn@Liu:~/Downloads$ cd ~
+
+--- creat an snpe virtualenv
+jinn@Liu:~$ mkdir ~/snpe
+jinn@Liu:~$ mv snpe-1.38.0.2034 snpe
+#jinn@Liu:~$ mv android-ndk-r21d snpe#
+jinn@Liu:~$ mv android-ndk-r21e snpe
+
+--- check python 
+jinn@Liu:~$ python --version 
+Python 3.8.2
+cd 
+--- install python 3.5.2
+jinn@Liu:~$ pyenv install 3.5.4  
+jinn@Liu:~$ pyenv versions
+  system
+  3.5.2
+  3.7.3
+  3.7.3/envs/OP
+* 3.8.2 (set by /home/jinn/.pyenv/version)
+  OP
+
+jinn@Liu:~$ pyenv virtualenv 3.5.4 snpe
+jinn@Liu:~$ cd snpe
+jinn@Liu:~/snpe$ pyenv local snpe
+(snpe) jinn@Liu:~/snpe$ python --version
+Python 3.5.4
+(snpe) jinn@Liu:~/snpe$ pip install --upgrade pip
+#(snpe) jinn@Liu:~/snpe$ sudo apt-get install python-dev python-matplotlib python-numpy python-protobuf python-scipy python-skimage python-sphinx wget zip
+(snpe) jinn@Liu:~/snpe$ sudo apt-get install python-dev-is-python2 python3-matplotlib python-numpy python-protobuf python-scipy python-skimage sphinx-doc sphinx-common wget zip
+(snpe) jinn@Liu:~/snpe$ sudo apt-get install python3-skimage python3-yaml
+
+--- Install tensorflow==1.0.0
+(snpe) jinn@Liu:~/snpe$ pip install tensorflow==1.0.0 numpy sphinx scipy matplotlib scikit-image pyyaml mako
+(snpe) jinn@Liu:~/snpe$ pip show tensorflow
+Name: tensorflow
+Version: 1.0.0
+...
+
+--- set up snpe-1.38.0.2034   
+(snpe) jinn@Liu:~/snpe$ source snpe-1.38.0.2034/bin/dependencies.sh
+(snpe) jinn@Liu:~/snpe$ source snpe-1.38.0.2034/bin/check_python_depends.sh
+(snpe) jinn@Liu:~/snpe$ source snpe-1.38.0.2034/bin/envsetup.sh -t snpe-1.38.0.2034 ?????????
+(snpe) jinn@Liu:~/snpe$ export ANDROID_NDK_ROOT=android-ndk-r21d
+
+--- set up inception_v3
+(snpe) jinn@Liu:~/snpe$ cd $SNPE_ROOT/models/inception_v3
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3$ python3 $SNPE_ROOT/models/inception_v3/scripts/setup_inceptionv3.py -h
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3$ python3 $SNPE_ROOT/models/inception_v3/scripts/setup_inceptionv3.py -a ASSETS_DIR -d
+
+(B) ----- Test 1: View inception_v3.dlc (deep learning container)
+
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3$ cd dlc
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3/dlc$ snpe-dlc-viewer -i inception_v3.dlc
+--- OK when you see inception_v3.html on your browser
+--- type ctrl+c to exit
+
+(C) ----- Test 2: View supercombo.dlc
+
+--- go to browser and downlaod supercombo_comma2.dlc (52.6 MB) from my comma two
+https://drive.google.com/file/d/1LgddnA7SRnoMQOWE7eO_zoPz8OmHokhc/view?usp=sharing
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3/dlc$ mv /home/jinn/Downloads/supercombo_comma2.dlc /home/jinn/snpe/snpe-1.38.0.2034/models/inception_v3/dlc
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3/dlc$ snpe-dlc-viewer -i supercombo_comma2.dlc
+
+(D) ----- Test 3: Run inception_v3.dlc
+
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3/dlc$ cd ..
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3$ snpe-net-run --container dlc/inception_v3.dlc --input_list data/cropped/raw_list.txt
+--- use inception_v3.dlc to predict 
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3$ python3 $SNPE_ROOT/models/inception_v3/scripts/show_inceptionv3_classifications.py -i data/cropped/raw_list.txt -o output/ -l data/imagenet_slim_labels.txt
+--- here are results
+Classification results
+... plastic_cup.raw 0.990612 648 measuring cup
+... notice_sign.raw 0.167454 459 brass
+... trash_bin.raw   0.684572 413 ashcan
+... chairs.raw      0.382222 832 studio couchSNPE
+
+(E) ----- Test 4: Convert inception_frozen.pb to inception_v3.dlc
+
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3$ cd dlc
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3/dlc$ mv inception_v3.dlc inception_v3_old.dlc
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3/dlc$ cd ~/snpe
+(snpe) jinn@Liu:~/snpe$ export ANDROID_NDK_ROOT=android-ndk-r21d
+(snpe) jinn@Liu:~/snpe$ cd snpe-1.38.0.2034
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034$ python ./models/inception_v3/scripts/setup_inceptionv3.py -a ./temp-assets-cache -d
+
+--- here is output
+...
+INFO: Downloading inception_v3 TensorFlow model...
+... inception_v3_2016_08_28_frozen.pb.tar.gz
+...
+INFO: Extracting TensorFlow model
+...
+INFO: Creating SNPE inception_v3 raw data
+...
+INFO: Creating image list data files
+...
+INFO: Converting inception_v3_2016_08_28_frozen.pb to SNPE DLC format
+...
+==============================================================
+Building Network
+==============================================================
+... Saving model at /home/jinn/snpe/snpe-1.38.0.2034/models/inception_v3/dlc/inception_v3.dlc
+... Conversion completed successfully
+INFO: Setup inception_v3 completed.
+
+--- see the new dlc
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034$ cd models/inception_v3/dlc
+(snpe) jinn@Liu:~/snpe/snpe-1.38.0.2034/models/inception_v3/dlc$ ls
+inception_v3.dlc  inception_v3_old.dlc  supercombo_comma2.dlc
+
+(F) ----- Test 5: Convert ypnet1.pb to ypnet1.dlc
+
+---------- End ---------- 
+
+---------- Appendix
+--- Error Failed old Test 5: Convert yolo3_frzn.pb to yolo3.dlc
+--- Error (due to VMware?)
+(snpe) jinn@ubuntu:~/snpe/snpe-1.38.0.2034/models/inception_v3/dlc$ snpe-dlc-viewer -i inception_v3.dlc
+Failed to find necessary package:
+libpython3.5m.so.1.0: cannot open shared object file: No such file or directory
+Please ensure that $SNPE_ROOT/lib/python is in your PYTHONPATH
+
+
+--- delete virtualenv OPx
+jinn@Liu:~$ pyenv versions
+jinn@Liu:~$ pyenv virtualenv-delete OPx
+
+
